@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,10 @@ public class Category implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     public String getName() {
