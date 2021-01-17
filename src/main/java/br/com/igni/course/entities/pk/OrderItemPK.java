@@ -2,10 +2,8 @@ package br.com.igni.course.entities.pk;
 
 import br.com.igni.course.entities.Order;
 import br.com.igni.course.entities.Product;
-
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
@@ -51,7 +49,5 @@ public class OrderItemPK implements Serializable {
     public int hashCode() {
         return Objects.hash(order, product);
     }
-
-
 }
 
