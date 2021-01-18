@@ -2,6 +2,7 @@ package br.com.igni.course.services;
 
 import br.com.igni.course.entities.User;
 import br.com.igni.course.repositories.UserRepository;
+import br.com.igni.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById (Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return  obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert (User obj){
