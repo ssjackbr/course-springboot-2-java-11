@@ -2,7 +2,10 @@ package br.com.igni.course.services;
 
 import br.com.igni.course.entities.User;
 import br.com.igni.course.repositories.UserRepository;
+import br.com.igni.course.services.exceptions.DatabaseException;
 import br.com.igni.course.services.exceptions.ResourceNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,9 +32,14 @@ public class UserService {
     }
 
     public void delete (Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw  new DatabaseException(e.getMessage());
+        }
     }
-
     public User update (Long id, User obj){
         User entity = repository.getOne(id);
         updateData(entity,obj);
